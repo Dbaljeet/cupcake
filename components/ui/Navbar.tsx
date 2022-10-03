@@ -13,7 +13,15 @@ import {
   SearchOutlined,
   ShoppingCartCheckoutOutlined,
 } from "@mui/icons-material"
-export const Navbar = () => {
+
+interface Props {
+  setShowMenu:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Navbar:React.FC<Props> = ({setShowMenu}) => {
+  const handleClick = () =>{
+    setShowMenu(true)
+  }
   return (
     <AppBar>
       <Toolbar>
@@ -54,7 +62,7 @@ export const Navbar = () => {
             </Link>
           </NextLink>
 
-          <Button>Menú</Button>
+          <Button onClick={handleClick}>Menú</Button>
         </Box>
       </Toolbar>
     </AppBar>
