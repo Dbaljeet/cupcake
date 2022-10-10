@@ -7,19 +7,19 @@ import {
   Link,
   Toolbar,
   Typography,
-} from "@mui/material"
-import NextLink from "next/link"
+} from '@mui/material'
+import NextLink from 'next/link'
 import {
   SearchOutlined,
   ShoppingCartCheckoutOutlined,
-} from "@mui/icons-material"
+} from '@mui/icons-material'
 
 interface Props {
-  setShowMenu:React.Dispatch<React.SetStateAction<boolean>>
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const Navbar:React.FC<Props> = ({setShowMenu}) => {
-  const handleClick = () =>{
+export const Navbar: React.FC<Props> = ({ setShowMenu }) => {
+  const handleClick = () => {
     setShowMenu(true)
   }
   return (
@@ -27,22 +27,22 @@ export const Navbar:React.FC<Props> = ({setShowMenu}) => {
       <Toolbar>
         <NextLink href='' passHref>
           <Link display='flex' alignItems='center'>
-            <Typography variant='h6'>Cupcake |</Typography>
+            <Typography variant='h5'>Cupcake |</Typography>
             <Typography sx={{ ml: 0.5 }}>Shop</Typography>
           </Link>
         </NextLink>
 
         <Box flex={1}></Box>
 
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           <NextLink href='/Cupcakes'>
             <Link>
-              <Button>Ver Cupcackes</Button>
+              <Button size='medium'>Ver Cupcackes</Button>
             </Link>
           </NextLink>
           <NextLink href='categories/CupcakesLivianos'>
             <Link>
-              <Button>Opciones livianas</Button>
+              <Button size='medium'>Opciones livianas</Button>
             </Link>
           </NextLink>
         </Box>
@@ -62,7 +62,9 @@ export const Navbar:React.FC<Props> = ({setShowMenu}) => {
             </Link>
           </NextLink>
 
-          <Button onClick={handleClick}>Menú</Button>
+          <Button size='medium' onClick={handleClick}>
+            Menú
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>
