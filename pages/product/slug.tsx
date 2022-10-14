@@ -1,18 +1,17 @@
 import {
   Box,
   Button,
-  Chip,
   Grid,
   Typography,
   CardActionArea,
   CardMedia,
-} from "@mui/material"
-import { NextPage } from "next"
-import { ShopLayout } from "../../components/layouts"
-import { initialData } from "../../database/products"
-import { ItemCounter } from "../../components/ui"
-import { SizeSelector } from "../../components/products"
-import { useState } from "react"
+} from '@mui/material'
+import { NextPage } from 'next'
+import { ShopLayout } from '../../components/layouts'
+import { initialData } from '../../database/products'
+import { ItemCounter } from '../../components/ui'
+import { SizeSelector } from '../../components/products'
+import { useState } from 'react'
 const product = initialData.products[0]
 
 const Slug: NextPage = () => {

@@ -1,9 +1,9 @@
-import Head from "next/head"
-import { FC } from "react"
-import { Navbar,SideMenu } from "../ui"
+import Head from 'next/head'
+import { FC } from 'react'
+import { Navbar, SideMenu } from '../ui'
 import { useState } from 'react'
 interface Props {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
   title: string
   pageDescription: string
   imageFullUrl?: string
@@ -14,7 +14,6 @@ export const ShopLayout: FC<Props> = ({
   pageDescription,
   imageFullUrl,
 }) => {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
   return (
     <>
       <Head>
@@ -25,14 +24,14 @@ export const ShopLayout: FC<Props> = ({
         {imageFullUrl && <meta name='og:image' content={imageFullUrl} />}
       </Head>
       <nav>
-        <Navbar setShowMenu = {setShowMenu}></Navbar>
+        <Navbar />
       </nav>
-      <SideMenu showMenu = {showMenu}/>
+      <SideMenu />
       <main
         style={{
-          margin: "80px auto",
-          maxWidth: "1440px",
-          padding: "0x 30px",
+          margin: '80px auto',
+          maxWidth: '1440px',
+          padding: '0x 30px',
         }}
       >
         {children}

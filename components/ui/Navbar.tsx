@@ -13,15 +13,12 @@ import {
   SearchOutlined,
   ShoppingCartCheckoutOutlined,
 } from '@mui/icons-material'
+import { useContext } from 'react'
+import { UiContext } from '../../context'
 
-interface Props {
-  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
-}
+export const Navbar: React.FC = ({}) => {
+  const { toggleSideMenu } = useContext(UiContext)
 
-export const Navbar: React.FC<Props> = ({ setShowMenu }) => {
-  const handleClick = () => {
-    setShowMenu(true)
-  }
   return (
     <AppBar>
       <Toolbar>
@@ -62,7 +59,7 @@ export const Navbar: React.FC<Props> = ({ setShowMenu }) => {
             </Link>
           </NextLink>
 
-          <Button size='medium' onClick={handleClick}>
+          <Button size='medium' onClick={toggleSideMenu}>
             Menú
           </Button>
         </Box>
