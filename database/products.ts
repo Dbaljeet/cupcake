@@ -1,5 +1,4 @@
 interface SeedProduct {
-  _id: string
   description: string
   images: string[]
   inStock: number
@@ -11,15 +10,15 @@ interface SeedProduct {
   type: ValidTypes
 }
 
-type ValidSizes = "Pequeño" | "Mediano" | "Grande"
+type ValidSizes = 'Pequeño' | 'Mediano' | 'Grande'
 type ValidTypes =
-  | "San Valentín"
-  | "Cumpleaños"
-  | "Halloween"
-  | "Sin gluten"
-  | "Sin huevo"
-  | "Rellenos"
-  | "Sin relleno"
+  | 'San Valentín'
+  | 'Cumpleaños'
+  | 'Halloween'
+  | 'Sin gluten'
+  | 'Sin huevo'
+  | 'Rellenos'
+  | 'Sin relleno'
 
 interface SeedData {
   products: SeedProduct[]
@@ -28,65 +27,60 @@ interface SeedData {
 export const initialData: SeedData = {
   products: [
     {
-      _id: "1",
       description:
-        "Este cupcake está cubierto con dulces chispas y corazones comestibles, crema y por dentro relleno con manjar",
-      images: ["1473809-00-A_1_2000.jpg", "1473809-00-A_alt.jpg"],
+        'Este cupcake está cubierto con dulces chispas y corazones comestibles, crema y por dentro relleno con manjar',
+      images: ['1473809-00-A_1_2000.jpg', '1473809-00-A_alt.jpg'],
       inStock: 7,
       price: 75,
-      sizes: ["Pequeño", "Mediano", "Grande"],
-      slug: "",
-      type: "San Valentín",
-      tags: ["sweatshirt"],
-      title: "Cupcake con corazones",
+      sizes: ['Pequeño', 'Mediano', 'Grande'],
+      slug: 's0',
+      type: 'San Valentín',
+      tags: ['sweatshirt'],
+      title: 'Cupcake con corazones',
     },
     {
-      _id: "2",
-      description: "",
-      images: ["1473814-00-A_1_2000.jpg", "1473814-00-A_alt.jpg"],
+      description: 'Este cupcake es fenomenal!!!',
+      images: ['1473814-00-A_1_2000.jpg', '1473814-00-A_alt.jpg'],
       inStock: 3,
       price: 75,
-      sizes: ["Mediano", "Grande"],
-      slug: "",
-      type: "Rellenos",
-      tags: ["sweatshirt"],
-      title: "Cupcake de chocolate",
+      sizes: ['Mediano', 'Grande'],
+      slug: 's1',
+      type: 'Rellenos',
+      tags: ['sweatshirt'],
+      title: 'Cupcake de chocolate',
     },
     {
-      _id: "3",
-      description: "",
-      images: ["1473815-00-A_1_2000.jpg", "1473815-00-A_1_2000-00-A_alt.jpg"],
+      description: 'Único en La Serena',
+      images: ['1473815-00-A_1_2000.jpg', '1473815-00-A_1_2000-00-A_alt.jpg'],
       inStock: 17,
       price: 75,
-      sizes: ["Mediano", "Grande"],
-      slug: "",
-      type: "Sin relleno",
-      tags: ["sweatshirt"],
-      title: "Cupcake de chocolate",
+      sizes: ['Mediano', 'Grande'],
+      slug: 's2',
+      type: 'Sin relleno',
+      tags: ['sweatshirt'],
+      title: 'Cupcake de chocolate',
     },
     {
-      _id: "4",
-      description: "",
-      images: ["1473816-00-A_1_2000.jpg", "1473816-00-A_1_2000-00-A_alt.jpg"],
+      description: 'Cupcake con gran decoración, ideal para regalar',
+      images: ['1473816-00-A_1_2000.jpg', '1473816-00-A_1_2000-00-A_alt.jpg'],
       inStock: 10,
       price: 75,
-      sizes: ["Mediano"],
-      slug: "",
-      type: "Halloween",
-      tags: ["sweatshirt"],
-      title: "Cupcake de chocolate - Halloween",
+      sizes: ['Mediano'],
+      slug: 's3',
+      type: 'Halloween',
+      tags: ['sweatshirt'],
+      title: 'Cupcake de chocolate - Halloween',
     },
     {
-      _id: "5",
-      description: "",
-      images: ["1473817-00-A_1_2000.jpg", "1473817-00-A_1_2000-00-A_alt.jpg"],
+      description: '<3',
+      images: ['1473817-00-A_1_2000.jpg', '1473817-00-A_1_2000-00-A_alt.jpg'],
       inStock: 30,
       price: 75,
-      sizes: ["Mediano"],
-      slug: "",
-      type: "Halloween",
-      tags: ["sweatshirt"],
-      title: "Cupcake con frutas",
+      sizes: ['Mediano'],
+      slug: 's4',
+      type: 'Halloween',
+      tags: ['sweatshirt'],
+      title: 'Cupcake con frutas',
     },
   ],
 }

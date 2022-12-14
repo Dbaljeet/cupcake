@@ -9,7 +9,7 @@ export const ProductList: FC<Props> = ({ products }) => {
   return (
     <Grid container spacing={4} justifyContent='center'>
       {products.map((product) => (
-        <ProductCard key={product._id} product={product} />
+        <ProductCard key={product.slug} product={product} />
       ))}
     </Grid>
   )

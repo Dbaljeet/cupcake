@@ -1,26 +1,33 @@
 import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
 import { ProductList } from '../components/products'
-import { initialData } from '../database/products'
+//import { initialData } from '../database/products'
+import { useProducts } from '../hooks'
+import { Loading } from '../components/ui'
+
 const Home: NextPage = () => {
+  const { products, isLoading, isError } = useProducts('/products')
+
+  if (isError) return <div>Failed to load</div>
+
   return (
-    <div className={styles.container}>
       <ShopLayout
         title={'Cupcake La Serena'}
         pageDescription={'Encuentra los mejores cupcakes de la cuarta región'}
       >
+        <Box sx={{padding:2}}>
         <Typography variant='h1' component='h1'>
           Cupcake
         </Typography>
-        <Typography variant='h2' sx={{ mb: 1 }}>
+        <Typography variant='h2'>
           Productos
         </Typography>
+        </Box>
 
-        <ProductList products={initialData.products as any} />
+        {isLoading ? <Loading/> : <ProductList products={products} />}
+      
       </ShopLayout>
-    </div>
   )
 }
 
