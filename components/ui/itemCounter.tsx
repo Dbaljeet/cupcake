@@ -1,16 +1,12 @@
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material'
 import { Box, IconButton, Typography } from '@mui/material'
-import React, { Dispatch, FC, useState } from 'react'
+import React, { Dispatch, FC } from 'react'
 interface Props {
   limit: number
   selectedCount: number
   setSelectedCount: Dispatch<number>
 }
-export const ItemCounter: FC<Props> = ({
-  limit,
-  selectedCount,
-  setSelectedCount,
-}) => {
+const ItemCounter: FC<Props> = ({ limit, selectedCount, setSelectedCount }) => {
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -39,3 +35,4 @@ export const ItemCounter: FC<Props> = ({
     </>
   )
 }
+export default ItemCounter

@@ -9,7 +9,6 @@ import {
 } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { ShopLayout } from '../../components/layouts'
-import { ItemCounter } from '../../components/ui'
 import { SizeSelector } from '../../components/products'
 import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -17,6 +16,7 @@ import { useRouter } from 'next/router'
 import { dbProducts } from '../../database'
 import { ICartProduct, IProduct, ISize } from '../../interfaces'
 import { CartContext } from '../../context'
+import ItemCounter from '../../components/ui/itemCounter'
 
 interface Props {
   product: IProduct
