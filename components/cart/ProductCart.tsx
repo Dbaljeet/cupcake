@@ -22,7 +22,7 @@ interface Props {
 export const ProductCart: FC<Props> = ({ product, editable }) => {
   const firstTimeLoad = useRef(true)
   const [selectedCount, setSelectedCount] = useState(1)
-  const { updateQuantityProduct } = useContext(CartContext)
+  const { updateQuantityProduct, deleteProduct } = useContext(CartContext)
 
   useEffect(() => {
     if (firstTimeLoad.current && product) {
@@ -76,7 +76,11 @@ export const ProductCart: FC<Props> = ({ product, editable }) => {
       >
         <Typography>{`$${product.price} c/u`}</Typography>
         {editable && (
-          <Button variant="text" color="secondary">
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={() => deleteProduct(product)}
+          >
             Eliminar
           </Button>
         )}

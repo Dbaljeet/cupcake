@@ -8,6 +8,10 @@ type CartActionType =
       type: '[Cart] - Update quantity products in cart'
       payload: ICartProduct[]
     }
+  | {
+      type: '[Cart] - Delete product in cart'
+      payload: ICartProduct
+    }
 
 export const CartReducer = (
   state: CartState,
@@ -31,7 +35,17 @@ export const CartReducer = (
         ...state,
         cart: [...action.payload],
       }
-
+    case '[Cart] - Delete product in cart':
+      return {
+        ...state,
+        cart: state.cart.filter(
+          (product) =>
+            !(
+              product._id === action.payload._id &&
+              product.size === action.payload.size
+            )
+        ),
+      }
     default:
       return state
   }
