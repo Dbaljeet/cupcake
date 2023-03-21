@@ -11,6 +11,7 @@ import { ShopLayout } from '../../components/layouts'
 import { CartList } from '../../components/cart'
 import { useContext } from 'react'
 import { CartContext } from '../../context'
+import { Cashformat } from '../../utils'
 
 export default function Cart() {
   const { numberOfItems, subTotal, tax, total } = useContext(CartContext)
@@ -35,13 +36,13 @@ export default function Cart() {
                   {`Cantidad productos: ${numberOfItems}`}
                 </Typography>
                 <Typography variant="h5" component="h5">
-                  {`Subtotal: ${subTotal}`}
+                  {`Subtotal: ${Cashformat(subTotal, 0)}`}
                 </Typography>
                 <Typography variant="h5" component="h5">
                   {`Impuesto: ${tax}`}
                 </Typography>
                 <Typography variant="h5" component="h5">
-                  {`Total: ${total}`}
+                  {`Total: ${Cashformat(total, 2)}`}
                 </Typography>
                 <Divider sx={{ my: 1 }} />
                 <Box sx={{ mt: 3 }}>
