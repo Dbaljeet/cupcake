@@ -9,8 +9,11 @@ import {
 } from '@mui/material'
 import { ShopLayout } from '../../components/layouts'
 import { CartList } from '../../components/cart'
+import { useContext } from 'react'
+import { CartContext } from '../../context'
 
 export default function Cart() {
+  const { numberOfItems, subTotal, tax, total } = useContext(CartContext)
   return (
     <>
       <ShopLayout
@@ -28,9 +31,22 @@ export default function Cart() {
                   Carro
                 </Typography>
                 <Divider sx={{ my: 1 }} />
+                <Typography variant="h5" component="h5">
+                  {`Cantidad productos: ${numberOfItems}`}
+                </Typography>
+                <Typography variant="h5" component="h5">
+                  {`Subtotal: ${subTotal}`}
+                </Typography>
+                <Typography variant="h5" component="h5">
+                  {`Impuesto: ${tax}`}
+                </Typography>
+                <Typography variant="h5" component="h5">
+                  {`Total: ${total}`}
+                </Typography>
+                <Divider sx={{ my: 1 }} />
                 <Box sx={{ mt: 3 }}>
                   <Button color="secondary" className="circular-btn" fullWidth>
-                    Checkout
+                    Finalizar compra
                   </Button>
                 </Box>
               </CardContent>

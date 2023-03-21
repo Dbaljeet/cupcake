@@ -1,5 +1,5 @@
 import { CartState } from '.'
-import { ICartProduct } from '../../interfaces'
+import { ICartProduct, IOrderSummary } from '../../interfaces'
 
 type CartActionType =
   | { type: '[Cart] - LoadCart from cookies'; payload: ICartProduct[] }
@@ -11,6 +11,10 @@ type CartActionType =
   | {
       type: '[Cart] - Delete product in cart'
       payload: ICartProduct
+    }
+  | {
+      type: '[Cart] - Update order summary'
+      payload: IOrderSummary
     }
 
 export const CartReducer = (
@@ -45,6 +49,11 @@ export const CartReducer = (
               product.size === action.payload.size
             )
         ),
+      }
+    case '[Cart] - Update order summary':
+      return {
+        ...state,
+        ...action.payload,
       }
     default:
       return state
