@@ -2,6 +2,7 @@ import { FC, useEffect, useReducer } from 'react'
 import { authContext, authReducer } from './index'
 import { signOut, useSession } from 'next-auth/react'
 import { IUser } from '../../interfaces/user'
+import Cookies from 'js-cookie'
 
 export interface authState {
   user?: IUser
@@ -28,6 +29,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   }, [status, data])
 
   const logout = () => {
+    Cookies.remove('cart')
     signOut()
     dispatch({ type: '[AUTH] - Logout' })
   }
