@@ -7,6 +7,7 @@ import {
   InputAdornment,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
@@ -16,8 +17,6 @@ import {
   AdminPanelSettings,
   CategoryOutlined,
   ConfirmationNumberOutlined,
-  EscalatorWarningOutlined,
-  FemaleOutlined,
   LoginOutlined,
   MaleOutlined,
   SearchOutlined,
@@ -27,8 +26,11 @@ import {
 import { useContext, useState } from 'react'
 import { UiContext } from '../../context'
 import { useRouter } from 'next/router'
+import { authContext } from '../../context/auth'
 export const SideMenu: React.FC = () => {
   const router = useRouter()
+  const { user, isLoggedIn, logout } = useContext(authContext)
+
   const { push } = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
 
@@ -38,7 +40,6 @@ export const SideMenu: React.FC = () => {
   }
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [isSearchVisible, setIsSearchVisible] = useState(false)
 
   const onSearchTerm = () => {
     if (searchTerm.trim().length === 0) return
@@ -74,78 +75,89 @@ export const SideMenu: React.FC = () => {
             />
           </ListItem>
 
-          <ListItem button onClick={() => navigateTo('/profile')}>
-            <ListItemIcon>
-              <AccountCircleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Perfil'} />
-          </ListItem>
+          {isLoggedIn && (
+            <>
+              <li>
+                <ListItemButton onClick={() => navigateTo('/profile')}>
+                  <ListItemIcon>
+                    <AccountCircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Perfil'} />
+                </ListItemButton>
+              </li>
 
-          <ListItem button>
-            <ListItemIcon>
-              <ConfirmationNumberOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Mis Ordenes'} />
-          </ListItem>
+              <li>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ConfirmationNumberOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Mis Ordenes'} />
+                </ListItemButton>
+              </li>
 
-          <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
-            <ListItemIcon>
-              <MaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Hombres'} />
-          </ListItem>
+              <li>
+                <ListItemButton sx={{ display: { xs: '', sm: 'none' } }}>
+                  <ListItemIcon>
+                    <MaleOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'...'} />
+                </ListItemButton>
+              </li>
 
-          <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
-            <ListItemIcon>
-              <FemaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Mujeres'} />
-          </ListItem>
+              <li>
+                <ListItemButton onClick={() => logout()}>
+                  <ListItemIcon>
+                    <LoginOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Salir'} />
+                </ListItemButton>
+              </li>
+            </>
+          )}
 
-          <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
-            <ListItemIcon>
-              <EscalatorWarningOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Niños'} />
-          </ListItem>
-
-          <ListItem button>
-            <ListItemIcon>
-              <VpnKeyOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Ingresar'} />
-          </ListItem>
-
-          <ListItem button>
-            <ListItemIcon>
-              <LoginOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Salir'} />
-          </ListItem>
+          {!isLoggedIn && (
+            <li>
+              <ListItemButton
+                onClick={() => navigateTo('/login')}
+                aria-label="Inicia sesión para realizar tu compra"
+              >
+                <ListItemIcon>
+                  <VpnKeyOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Ingresar'} />
+              </ListItemButton>
+            </li>
+          )}
 
           {/* Admin */}
           <Divider />
           <ListSubheader>Admin Panel</ListSubheader>
+          <li>
+            <ListItemButton>
+              <ListItemIcon>
+                <CategoryOutlined />
+              </ListItemIcon>
+              <ListItemText primary={'Productos'} />
+            </ListItemButton>
+          </li>
 
-          <ListItem button>
-            <ListItemIcon>
-              <CategoryOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Productos'} />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ConfirmationNumberOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Ordenes'} />
-          </ListItem>
+          <li>
+            <ListItemButton>
+              <ListItemIcon>
+                <ConfirmationNumberOutlined />
+              </ListItemIcon>
+              <ListItemText primary={'Ordenes'} />
+            </ListItemButton>
+          </li>
 
-          <ListItem button>
-            <ListItemIcon>
-              <AdminPanelSettings />
-            </ListItemIcon>
-            <ListItemText primary={'Usuarios'} />
-          </ListItem>
+          <li>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminPanelSettings />
+              </ListItemIcon>
+              <ListItemText primary={'Usuarios'} />
+            </ListItemButton>
+          </li>
         </List>
       </Box>
     </Drawer>
