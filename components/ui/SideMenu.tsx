@@ -94,7 +94,7 @@ export const SideMenu: React.FC = () => {
                   <ListItemText primary={'Mis Ordenes'} />
                 </ListItemButton>
               </li>
-
+              {/* 
               <li>
                 <ListItemButton sx={{ display: { xs: '', sm: 'none' } }}>
                   <ListItemIcon>
@@ -102,7 +102,7 @@ export const SideMenu: React.FC = () => {
                   </ListItemIcon>
                   <ListItemText primary={'...'} />
                 </ListItemButton>
-              </li>
+              </li>*/}
 
               <li>
                 <ListItemButton onClick={() => logout()}>
@@ -129,35 +129,39 @@ export const SideMenu: React.FC = () => {
             </li>
           )}
 
-          {/* Admin */}
-          <Divider />
-          <ListSubheader>Admin Panel</ListSubheader>
-          <li>
-            <ListItemButton>
-              <ListItemIcon>
-                <CategoryOutlined />
-              </ListItemIcon>
-              <ListItemText primary={'Productos'} />
-            </ListItemButton>
-          </li>
+          {user?.role === 'Admin' && (
+            <>
+              <Divider />
 
-          <li>
-            <ListItemButton>
-              <ListItemIcon>
-                <ConfirmationNumberOutlined />
-              </ListItemIcon>
-              <ListItemText primary={'Ordenes'} />
-            </ListItemButton>
-          </li>
+              <ListSubheader>Admin Panel</ListSubheader>
+              <li>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <CategoryOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Productos'} />
+                </ListItemButton>
+              </li>
 
-          <li>
-            <ListItemButton>
-              <ListItemIcon>
-                <AdminPanelSettings />
-              </ListItemIcon>
-              <ListItemText primary={'Usuarios'} />
-            </ListItemButton>
-          </li>
+              <li>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ConfirmationNumberOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Ordenes'} />
+                </ListItemButton>
+              </li>
+
+              <li>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AdminPanelSettings />
+                  </ListItemIcon>
+                  <ListItemText primary={'Usuarios'} />
+                </ListItemButton>
+              </li>
+            </>
+          )}
         </List>
       </Box>
     </Drawer>

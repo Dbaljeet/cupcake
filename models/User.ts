@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, Model } from 'mongoose'
-import { IUserReg } from '../interfaces/UserReg'
+import { IUser } from '../interfaces'
 
 const userSchema = new Schema(
   {
@@ -21,6 +21,6 @@ const userSchema = new Schema(
   }
 )
 
-const User: Model<IUserReg> = mongoose.models.User || model('User', userSchema)
+const User: Model<IUser> = mongoose.models.User || model('User', userSchema)
 
 export default User

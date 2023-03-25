@@ -13,7 +13,7 @@ type FormData = {
   password: string
 }
 
-function Login() {
+function Register() {
   const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
@@ -167,4 +167,4 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {},
   }
 }
-export default Login
+export default Register
