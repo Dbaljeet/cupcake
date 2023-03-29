@@ -1,7 +1,8 @@
 import { FC, useEffect, useReducer, useRef } from 'react'
-import { ICartProduct, ShippingAddress } from '../../interfaces'
+import { ICartProduct, IOrder, ShippingAddress } from '../../interfaces'
 import { CartContext, CartReducer } from './index'
 import Cookie from 'js-cookie'
+import axios from 'axios'
 
 export interface CartState {
   cart: ICartProduct[]
@@ -10,6 +11,7 @@ export interface CartState {
   tax: number
   total: number
   shippingAddress?: ShippingAddress
+  isLoaded: boolean
 }
 
 const CART_INITIAL_STATE = {
@@ -19,6 +21,7 @@ const CART_INITIAL_STATE = {
   tax: 0,
   total: 0,
   shippingAddress: undefined,
+  isLoaded: false,
 }
 
 interface Props {
@@ -46,6 +49,24 @@ export const CartProvider: FC<Props> = ({ children }) => {
           payload: [],
         })
       }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (Cookie.get('firstName')) {
+      const shippingAddress = {
+        firstName: Cookie.get('firstName') || '',
+        lastName: Cookie.get('lastName') || '',
+        address: Cookie.get('address') || '',
+        zone: Cookie.get('zone') || '',
+        extra: Cookie.get('extra') || '',
+        phone: Cookie.get('phone') || '',
+      }
+
+      dispatch({
+        type: '[Cart] - LoadAddress from Cookies',
+        payload: shippingAddress,
+      })
     }
   }, [])
 
@@ -132,10 +153,58 @@ export const CartProvider: FC<Props> = ({ children }) => {
     Cookie.set('lastName', address.lastName)
     Cookie.set('address', address.address)
     Cookie.set('extra', address.extra || '')
-    Cookie.set('city', address.zone)
+    Cookie.set('zone', address.zone)
     Cookie.set('phone', address.phone)
 
     dispatch({ type: '[Cart] - Update Address', payload: address })
+  }
+
+  const createOrder = async (): Promise<{
+    hasError: boolean
+    message: string
+  }> => {
+    if (!state.shippingAddress) {
+      throw new Error('No hay dirección de entrega')
+    }
+
+    const body: IOrder = {
+      orderItems: state.cart.map((p) => ({
+        ...p,
+        size: p.size!,
+      })),
+      shippingAddress: state.shippingAddress,
+      numberOfItems: state.numberOfItems,
+      subTotal: state.subTotal,
+      tax: state.tax,
+      total: state.total,
+      isPaid: false,
+    }
+
+    try {
+      const { data } = await axios
+        .create({
+          baseURL: '/api',
+        })
+        .post<IOrder>('/orders', body)
+
+      dispatch({ type: '[Cart] - Order complete' })
+
+      return {
+        hasError: false,
+        message: data._id!,
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return {
+          hasError: true,
+          message: error.response?.data.message,
+        }
+      }
+      return {
+        hasError: true,
+        message: 'Error no controlado, hable con el administrador',
+      }
+    }
   }
 
   return (
@@ -148,6 +217,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
         updateQuantityProduct,
         deleteProduct,
         updateAddress,
+
+        createOrder,
       }}
     >
       {children}

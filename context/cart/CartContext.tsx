@@ -8,12 +8,15 @@ interface ContextProps {
   total: number
 
   shippingAddress?: ShippingAddress
+  isLoaded: boolean
 
   addProductToCart: (product: ICartProduct) => void
   updateQuantityProduct: (product: ICartProduct, quantity: number) => void
   deleteProduct: (product: ICartProduct) => void
 
   updateAddress: (address: ShippingAddress) => void
+
+  createOrder: () => Promise<{ hasError: boolean; message: string }>
 }
 
 export const CartContext = createContext({} as ContextProps)

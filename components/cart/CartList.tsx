@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { useContext } from 'react'
 import { ProductCart } from './ProductCart'
 import { CartContext } from '../../context'
 

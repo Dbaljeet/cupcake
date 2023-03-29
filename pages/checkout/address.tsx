@@ -3,13 +3,16 @@ import {
   Button,
   FormControl,
   Grid,
+  InputLabel,
   MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from '@mui/material'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ShopLayout } from '../../components/layouts'
 import { CartContext } from '../../context'
@@ -36,6 +39,7 @@ const getAddressFromCookies = (): FormData => {
 }
 
 export default function Address() {
+  const [zonee, setZonee] = useState('')
   const router = useRouter()
   const { updateAddress } = useContext(CartContext)
 
@@ -50,6 +54,9 @@ export default function Address() {
   const onSubmitAddress = (data: FormData) => {
     updateAddress(data)
     router.push('/checkout/summary')
+  }
+  const handleChange = (event: SelectChangeEvent) => {
+    setZonee(event.target.value as string)
   }
 
   return (
@@ -105,8 +112,8 @@ export default function Address() {
 
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth sx={{ textAlign: 'initial' }}>
-                <TextField
-                  select
+                <InputLabel id="demo-simple-select-label">Sector</InputLabel>
+                <Select
                   label="Sector"
                   required
                   variant="filled"
@@ -115,15 +122,16 @@ export default function Address() {
                   {...register('zone', {
                     required: 'Este campo es requerido',
                   })}
+                  value={zonee}
+                  onChange={handleChange}
                   error={!!errors.zone}
-                  helperText={errors.zone?.message}
                 >
                   {zones.map((zone) => (
                     <MenuItem key={zone.code} value={zone.code}>
                       {zone.name}
                     </MenuItem>
                   ))}
-                </TextField>
+                </Select>
               </FormControl>
             </Grid>
 
