@@ -1,13 +1,15 @@
-import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material'
-import { ShopLayout } from '../components/layouts'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import { getSession, getProviders, signIn } from 'next-auth/react'
 import { GetServerSideProps } from 'next/types'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { validations } from '../utils'
-import { useRouter } from 'next/router'
-import { redirect } from 'next/dist/server/api-utils'
+
+import { ShopLayout } from '../components/layouts'
+
 import { ErrorOutline } from '@mui/icons-material'
+import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material'
+import { validations } from '../utils'
+
 type FormData = {
   email: string
   password: string
@@ -37,6 +39,8 @@ function Login() {
       setTimeout(() => {
         setShowError(false)
       }, 4000)
+    } else {
+      router.push(router.query.p?.toString() || '/')
     }
   }
 
@@ -61,7 +65,7 @@ function Login() {
             gap: '30px',
           }}
         >
-          <Typography variant="h1" component="h1" fontSize={100}>
+          <Typography variant="h1" component="h1" fontSize={80}>
             Iniciar sesión
           </Typography>
           <Chip

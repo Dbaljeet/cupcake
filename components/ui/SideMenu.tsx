@@ -18,7 +18,6 @@ import {
   CategoryOutlined,
   ConfirmationNumberOutlined,
   LoginOutlined,
-  MaleOutlined,
   SearchOutlined,
   VpnKeyOutlined,
 } from '@mui/icons-material'
@@ -118,7 +117,7 @@ export const SideMenu: React.FC = () => {
           {!isLoggedIn && (
             <li>
               <ListItemButton
-                onClick={() => navigateTo('/login')}
+                onClick={() => navigateTo(`/login?p=${router.asPath}`)}
                 aria-label="Inicia sesión para realizar tu compra"
               >
                 <ListItemIcon>

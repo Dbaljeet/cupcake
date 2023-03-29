@@ -2,13 +2,16 @@ import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
 import { getSession, getProviders, signIn } from 'next-auth/react'
 import { GetServerSideProps } from 'next/types'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { validations } from '../utils'
 import { useRouter } from 'next/router'
 import { redirect } from 'next/dist/server/api-utils'
 import { ErrorOutline } from '@mui/icons-material'
+import { authContext } from '../context/auth'
+
 type FormData = {
+  name: string
   email: string
   password: string
 }
@@ -17,34 +20,40 @@ function Register() {
   const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const [providers, setProviders] = useState<any>({})
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>()
 
+  const { registerUser } = useContext(authContext)
+
   useEffect(() => {
     getProviders().then((prov) => setProviders(prov))
   }, [])
 
-  const onLoginUser = async ({ email, password }: FormData) => {
+  const onRegisterForm = async ({ name, email, password }: FormData) => {
     setShowError(false)
-    const x = await signIn('credentials', { email, password, redirect: false })
+    const { hasError, message } = await registerUser(name, email, password)
 
-    if (x?.error) {
+    if (hasError) {
       setShowError(true)
-      setTimeout(() => {
-        setShowError(false)
-      }, 4000)
+      setErrorMessage(message!)
+      setTimeout(() => setShowError(false), 3000)
+      return
     }
+
+    await signIn('credentials', { email, password })
   }
 
   return (
     <ShopLayout
-      title={'Iniciar sesión'}
+      title={'Regístrate'}
       pageDescription={
-        'Inicia sesión para comprar los mejores cupcakes de la cuarta región'
+        'Regístrate para comprar los mejores cupcakes de la cuarta región'
       }
     >
       <Box
@@ -61,8 +70,8 @@ function Register() {
             gap: '30px',
           }}
         >
-          <Typography variant="h1" component="h1" fontSize={100}>
-            Iniciar sesión
+          <Typography variant="h1" component="h1" fontSize={80}>
+            Regístrate
           </Typography>
           <Chip
             label="No reconocemos ese usuario / contraseña"
@@ -71,7 +80,21 @@ function Register() {
             className="fadeIn"
             sx={{ display: showError ? 'flex' : 'none' }}
           />
-          <form onSubmit={handleSubmit(onLoginUser)} noValidate>
+          <form onSubmit={handleSubmit(onRegisterForm)} noValidate>
+            <Grid item xs={12} m={2}>
+              <TextField
+                type="text"
+                label="Nombre"
+                variant="filled"
+                fullWidth
+                {...register('name', {
+                  required: 'Este campo es requerido',
+                })}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
+            </Grid>
+
             <Grid item xs={12} m={2}>
               <TextField
                 type="email"
@@ -86,6 +109,7 @@ function Register() {
                 helperText={errors.email?.message}
               />
             </Grid>
+
             <Grid item xs={12} m={2}>
               <TextField
                 label="Contraseña"
@@ -109,7 +133,7 @@ function Register() {
                 size="large"
                 fullWidth
               >
-                Ingresar
+                Enviar
               </Button>
             </Grid>
 

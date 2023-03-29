@@ -22,6 +22,7 @@ export const authReducer = (
         user: undefined,
         isLoggedIn: false,
       }
+
     default:
       return state
   }

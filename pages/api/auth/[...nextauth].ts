@@ -74,6 +74,15 @@ export const authOptions: NextAuthOptions = {
 
       return token
     },
+
+    async session({ session, token, user }) {
+      // console.log({ session, token, user });
+
+      session.accessToken = JSON.stringify(token.accessToken) || ''
+      session.user = token.user as any
+
+      return session
+    },
   },
 }
 export default NextAuth(authOptions)

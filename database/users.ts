@@ -20,7 +20,6 @@ export const checkUserEmailPassword = async (
   }
 
   const { role, name, _id } = user
-
   return {
     _id,
     email: email.toLocaleLowerCase(),
