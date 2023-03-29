@@ -74,6 +74,9 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   const logout = () => {
     Cookies.remove('token')
     Cookies.remove('cart')
+    Cookies.remove('next-auth.session-token')
+    Cookies.remove('next-auth.callback-url')
+    Cookies.remove('next-auth.csrf-token')
     signOut()
     dispatch({ type: '[AUTH] - Logout' })
   }
