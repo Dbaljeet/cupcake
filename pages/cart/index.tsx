@@ -66,7 +66,7 @@ export default function Cart() {
                       className="circular-btn"
                       fullWidth
                     >
-                      Finalizar compra
+                      Continuar compra
                     </Button>
                   </Box>
                 </CardContent>

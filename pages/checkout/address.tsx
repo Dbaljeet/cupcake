@@ -78,9 +78,9 @@ export default function Address() {
           </Typography>
           <Grid
             container
-            spacing={2}
+            gap={2}
             m={'auto'}
-            sx={{ mt: 2, maxWidth: '80%' }}
+            sx={{ m: 'auto', mt: 2, maxWidth: '80%' }}
             justifyContent={'center'}
           >
             <Grid item xs={12} sm={6}>
@@ -171,7 +171,7 @@ export default function Address() {
                 helperText={errors.phone?.message}
               />
             </Grid>
-            <Box sx={{ m: 'auto', mt: 3, mb: 2 }}>
+            <Grid item xs={12} sm={6} sx={{ m: 'auto', mt: 3, mb: 2 }}>
               <Button
                 type="submit"
                 sx={{ minWidth: '300px', height: '50px' }}
@@ -179,9 +179,9 @@ export default function Address() {
                 className="circular-btn"
                 fullWidth
               >
-                <Typography fontSize={20}>Finalizar compra</Typography>
+                <Typography fontSize={20}>Confirmar datos entrega</Typography>
               </Button>
-            </Box>
+            </Grid>
           </Grid>
         </form>
       </Box>

@@ -6,10 +6,11 @@ import {
   Box,
   Card,
   CardContent,
+  Chip,
 } from '@mui/material'
 import { ShopLayout } from '../../components/layouts'
 import { CartList } from '../../components/cart'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../context'
 import { Cashformat } from '../../utils'
 import { useRouter } from 'next/router'
@@ -29,11 +30,15 @@ export default function Cart() {
 
   const router = useRouter()
 
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isClicked, setIsClicked] = useState(false)
+
   useEffect(() => {
-    if (isLoaded && cart.length === 0) {
+    if (cart.length === 0 && !isClicked) {
       router.replace('/cart/empty')
     }
-  }, [isLoaded, cart, router])
+  }, [cart, isClicked, router])
 
   if (!shippingAddress) {
     return <></>
@@ -44,6 +49,18 @@ export default function Cart() {
   const zoneDef = (zone: String) => {
     const aux = zones.find((z) => z.code === zone)
     return aux?.name
+  }
+
+  const handleClick = async () => {
+    setIsSubmit(true)
+    setIsClicked(true)
+    const { message, hasError } = await createOrder()
+    if (hasError) {
+      setErrorMessage(message)
+      setIsSubmit(false)
+      return
+    }
+    router.replace(`/orders/${message}`)
   }
 
   return (
@@ -96,14 +113,21 @@ export default function Cart() {
                   <Box sx={{ mt: 3 }}>
                     <Button
                       onClick={() => {
-                        createOrder()
+                        handleClick()
                       }}
                       className="circular-btn"
                       color="secondary"
                       fullWidth
+                      disabled={isSubmit}
                     >
                       Finalizar compra
                     </Button>
+
+                    <Chip
+                      color="error"
+                      label={errorMessage}
+                      sx={{ display: errorMessage ? 'flex' : 'none', mt: 2 }}
+                    />
                   </Box>
                 </CardContent>
               </Card>
