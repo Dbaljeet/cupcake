@@ -40,7 +40,7 @@ export const ProductCart: FC<Props> = ({ product, editable }) => {
   return product ? (
     <Grid container spacing={2} key={product._id} sx={{ mb: 1 }}>
       <Grid item xs={3}>
-        <NextLink href="/product/slug">
+        <NextLink href={`/product/${product.slug}`}>
           <Link>
             <CardActionArea>
               <CardMedia

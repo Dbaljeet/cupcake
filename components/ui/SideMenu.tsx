@@ -86,7 +86,7 @@ export const SideMenu: React.FC = () => {
               </li>
 
               <li>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateTo(`/orders/history`)}>
                   <ListItemIcon>
                     <ConfirmationNumberOutlined />
                   </ListItemIcon>

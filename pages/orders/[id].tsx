@@ -5,9 +5,17 @@ import { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
 import { dbOrders } from '../../database'
 import { IOrder } from '../../interfaces'
+import { zones } from '../../utils/zones'
+import { CartList } from '../../components/cart'
+import { Cashformat } from '../../utils'
 
 interface Props {
   order: IOrder
+}
+
+const zoneDef = (zone: String) => {
+  const aux = zones.find((z) => z.code === zone)
+  return aux?.name
 }
 
 const Order: NextPage<Props> = ({ order }) => {
@@ -15,14 +23,14 @@ const Order: NextPage<Props> = ({ order }) => {
   const { shippingAddress } = order
   return (
     <ShopLayout
-      title={'Carro vacío'}
-      pageDescription={'No hay productos en el carro'}
+      title={'Orden | Cupcakes'}
+      pageDescription={'Revisa tu orden, pedido'}
     >
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
-        height="calc(100vh - 200px)"
+        minHeight="calc(100vh - 200px)"
         flexDirection={'column'}
       >
         <Chip
@@ -33,10 +41,10 @@ const Order: NextPage<Props> = ({ order }) => {
           <Typography variant="h1" component="h1" fontSize={100}>
             Orden|
           </Typography>
+          <Typography variant="h2" component="h2" fontSize={50}>
+            n°
+          </Typography>
           <Box>
-            <Typography variant="h2" component="h2" fontSize={50}>
-              n°
-            </Typography>
             <Link
               onClick={() =>
                 navigator.clipboard.writeText(
@@ -55,13 +63,51 @@ const Order: NextPage<Props> = ({ order }) => {
           </Box>
         </Box>
 
-        <Box>
+        <Box
+          m={'auto'}
+          sx={{
+            backgroundColor: '#4359',
+            color: '#fff',
+            p: '10px',
+            borderRadius: '10px',
+            mt: '40px',
+          }}
+        >
+          <Typography variant="h3" component="h3" fontSize={20}>
+            Sector: {zoneDef(shippingAddress.zone)}
+          </Typography>
           <Typography variant="h3" component="h3" fontSize={20}>
             Dirección: {shippingAddress.address}
           </Typography>
           <Typography variant="h3" component="h3" fontSize={20}>
-            Entrega a:{' '}
-            {shippingAddress.firstName + ' ' + shippingAddress.lastName}
+            Entrega a: {shippingAddress.firstName} {shippingAddress.lastName}
+          </Typography>
+        </Box>
+
+        <Box sx={{ maxWidth: '70%', padding: '10px', mt: '40px' }}>
+          <CartList products={order.orderItems} />
+        </Box>
+
+        <Box
+          m={'auto'}
+          sx={{
+            backgroundColor: '#4359',
+            color: '#fff',
+            p: '10px',
+            borderRadius: '10px',
+          }}
+        >
+          <Typography variant="h3" component="h3" fontSize={20}>
+            Cantidad productos: {order.numberOfItems}
+          </Typography>
+          <Typography variant="h3" component="h3" fontSize={20}>
+            Subtotal: {Cashformat(order.subTotal, 0)}
+          </Typography>
+          <Typography variant="h3" component="h3" fontSize={20}>
+            Impuesto: {order.tax}
+          </Typography>
+          <Typography variant="h3" component="h3" fontSize={20}>
+            Total: {Cashformat(order.total, 2)}
           </Typography>
         </Box>
       </Box>
