@@ -14,6 +14,7 @@ import {
 } from '@mui/material'
 import {
   AccountCircleOutlined,
+  AddModeratorOutlined,
   AdminPanelSettings,
   CategoryOutlined,
   ConfirmationNumberOutlined,
@@ -128,13 +129,23 @@ export const SideMenu: React.FC = () => {
             </li>
           )}
 
-          {user?.role === 'Admin' && (
+          {user?.role === 'admin' && (
             <>
               <Divider />
 
               <ListSubheader>Admin Panel</ListSubheader>
+
               <li>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateTo(`/admin`)}>
+                  <ListItemIcon>
+                    <AddModeratorOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Vista general'} />
+                </ListItemButton>
+              </li>
+
+              <li>
+                <ListItemButton onClick={() => navigateTo(`/admin/products`)}>
                   <ListItemIcon>
                     <CategoryOutlined />
                   </ListItemIcon>
@@ -143,7 +154,7 @@ export const SideMenu: React.FC = () => {
               </li>
 
               <li>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateTo(`/admin/orders`)}>
                   <ListItemIcon>
                     <ConfirmationNumberOutlined />
                   </ListItemIcon>
@@ -152,7 +163,7 @@ export const SideMenu: React.FC = () => {
               </li>
 
               <li>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigateTo(`/admin/users`)}>
                   <ListItemIcon>
                     <AdminPanelSettings />
                   </ListItemIcon>

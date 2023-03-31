@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import bcrypt from 'bcryptjs'
 
 import { db } from '../../../database'
 import { User } from '../../../models'
@@ -33,7 +32,6 @@ export default function handler(
 
 const checkJWT = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { token = '' } = req.cookies
-
   let userId = ''
 
   try {
@@ -53,7 +51,6 @@ const checkJWT = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 
   const { _id, email, role, name } = user
-
   return res.status(200).json({
     token: jwt.signToken(_id, email),
     user: {

@@ -38,7 +38,6 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   await db.connect()
   const user = await User.findOne({ email })
   Cookies.set('user', JSON.stringify(user))
-  console.log('user', user)
 
   await db.disconnect()
   if (!user) {
