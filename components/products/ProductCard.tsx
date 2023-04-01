@@ -18,9 +18,17 @@ export const ProductCard: FC<Props> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [imgLoaded, setImageLoaded] = useState(false)
 
+  /*image.includes('http')
+        ? image
+        : `${process.env.HOST_NAME}products/${image}` */
+
   const productImage = useMemo(() => {
     return isHovered
-      ? `/products/${product.images[1]}`
+      ? product.images[1].includes('http')
+        ? product.images[1]
+        : `/products/${product.images[1]}`
+      : product.images[0].includes('http')
+      ? product.images[0]
       : `/products/${product.images[0]}`
   }, [isHovered, product.images])
 

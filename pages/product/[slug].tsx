@@ -85,7 +85,7 @@ const Slug: NextPage<Props> = ({ product }) => {
                 height="1000"
                 className="fadeIn"
                 component="img"
-                image={`../products/${product.images[0]}`}
+                image={`${product.images[0]}`}
                 alt={product.title}
               />
             </CardActionArea>
