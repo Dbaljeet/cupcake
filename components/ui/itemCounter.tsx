@@ -6,7 +6,7 @@ interface Props {
   selectedCount: number
   setSelectedCount: Dispatch<number>
 }
-const ItemCounter: FC<Props> = ({ limit, selectedCount, setSelectedCount }) => {
+const itemCounter: FC<Props> = ({ limit, selectedCount, setSelectedCount }) => {
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -35,4 +35,4 @@ const ItemCounter: FC<Props> = ({ limit, selectedCount, setSelectedCount }) => {
     </>
   )
 }
-export default ItemCounter
+export default itemCounter
