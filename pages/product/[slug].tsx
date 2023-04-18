@@ -11,7 +11,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { ShopLayout } from '../../components/layouts'
 import { SizeSelector } from '../../components/products'
 import { useContext, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 
 import { dbProducts } from '../../database'
 import { ICartProduct, IProduct, ISize } from '../../interfaces'
@@ -23,7 +22,6 @@ interface Props {
 }
 
 const Slug: NextPage<Props> = ({ product }) => {
-  const router = useRouter()
   const [selectedCount, setSelectedCount] = useState(1)
   const [selectedSize, setSelectedSize] = useState(product.sizes[0])
   const { addProductToCart } = useContext(CartContext)

@@ -17,7 +17,22 @@ export async function middleware(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   })
 
-  if (!session) {
+  if (req.nextUrl.pathname.startsWith('/login') && session) {
+    const url = req.nextUrl.clone()
+    url.pathname = `/`
+    return NextResponse.redirect(url)
+  }
+  if (req.nextUrl.pathname.startsWith('/register') && session) {
+    const url = req.nextUrl.clone()
+    url.pathname = `/`
+    return NextResponse.redirect(url)
+  }
+
+  if (
+    !session &&
+    !req.nextUrl.pathname.startsWith('/login') &&
+    !req.nextUrl.pathname.startsWith('/register')
+  ) {
     const requestedPage = req.nextUrl.pathname
     const url = req.nextUrl.clone()
     url.pathname = `/login`
@@ -39,21 +54,16 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (req.nextUrl.pathname.startsWith('/login') && session) {
-    const url = req.nextUrl.clone()
-    url.pathname = `/`
-    return NextResponse.redirect(new URL('/api/auth/unauthorized', url))
-  }
-  if (req.nextUrl.pathname.startsWith('/register') && session) {
-    const url = req.nextUrl.clone()
-    url.pathname = `/`
-    return NextResponse.redirect(new URL('/api/auth/unauthorized', url))
-  }
-
   return NextResponse.next()
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/checkout/:path*', '/admin/:path*', '/api/admin/:path*'],
+  matcher: [
+    '/checkout/:path*',
+    '/admin/:path*',
+    '/api/admin/:path*',
+    '/login/:path*',
+    '/register/:path*',
+  ],
 }
