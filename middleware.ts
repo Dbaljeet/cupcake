@@ -40,10 +40,14 @@ export async function middleware(req: NextRequest) {
   }
 
   if (req.nextUrl.pathname.startsWith('/login') && session) {
-    return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url))
+    const url = req.nextUrl.clone()
+    url.pathname = `/`
+    return NextResponse.redirect(new URL('/api/auth/unauthorized', url))
   }
   if (req.nextUrl.pathname.startsWith('/register') && session) {
-    return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url))
+    const url = req.nextUrl.clone()
+    url.pathname = `/`
+    return NextResponse.redirect(new URL('/api/auth/unauthorized', url))
   }
 
   return NextResponse.next()

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { getSession, getProviders, signIn } from 'next-auth/react'
-import { GetServerSideProps } from 'next/types'
+import { getProviders, signIn } from 'next-auth/react'
 
 import { ShopLayout } from '../components/layouts'
 
@@ -173,24 +172,4 @@ function Login() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
-  const session = await getSession({ req })
-
-  const { p = '/' } = query
-  if (session) {
-    return {
-      redirect: {
-        destination: p.toString(),
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {},
-  }
-}
 export default Login
