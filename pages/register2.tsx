@@ -5,8 +5,10 @@ import { Grid } from '@mui/material'
 import { TextField } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
+import { getSession } from 'next-auth/react'
 import { getProviders } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
+import { GetServerSideProps } from 'next/types'
 import { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -22,7 +24,7 @@ type FormData = {
   password: string
 }
 
-function Register2() {
+function Register() {
   const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
@@ -177,4 +179,4 @@ function Register2() {
   )
 }
 
-export default Register2
+export default Register

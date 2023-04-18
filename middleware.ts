@@ -39,6 +39,13 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  if (req.nextUrl.pathname.startsWith('/login') && session) {
+    return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url))
+  }
+  if (req.nextUrl.pathname.startsWith('/register') && session) {
+    return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url))
+  }
+
   return NextResponse.next()
 }
 
