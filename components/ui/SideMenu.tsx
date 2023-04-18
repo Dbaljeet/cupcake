@@ -78,6 +78,7 @@ export const SideMenu: React.FC = () => {
 
           {isLoggedIn && (
             <>
+              {/* 
               <li>
                 <ListItemButton onClick={() => navigateTo('/profile')}>
                   <ListItemIcon>
@@ -86,7 +87,7 @@ export const SideMenu: React.FC = () => {
                   <ListItemText primary={'Perfil'} />
                 </ListItemButton>
               </li>
-
+*/}
               <li>
                 <ListItemButton onClick={() => navigateTo(`/orders/history`)}>
                   <ListItemIcon>
@@ -95,15 +96,6 @@ export const SideMenu: React.FC = () => {
                   <ListItemText primary={'Mis Ordenes'} />
                 </ListItemButton>
               </li>
-              {/* 
-              <li>
-                <ListItemButton sx={{ display: { xs: '', sm: 'none' } }}>
-                  <ListItemIcon>
-                    <MaleOutlined />
-                  </ListItemIcon>
-                  <ListItemText primary={'...'} />
-                </ListItemButton>
-              </li>*/}
 
               <li>
                 <ListItemButton onClick={() => logout()}>
