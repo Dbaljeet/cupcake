@@ -1,7 +1,3 @@
-import { Box, Chip, Grid } from '@mui/material'
-import { Button } from '@mui/material'
-import { TextField } from '@mui/material'
-import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
 import { getSession } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
@@ -14,6 +10,13 @@ import { useRouter } from 'next/router'
 import { ErrorOutline } from '@mui/icons-material'
 import { authContext } from '../context/auth'
 
+import { Box } from '@mui/material'
+import { Grid } from '@mui/material'
+import { Chip } from '@mui/material'
+import { Button } from '@mui/material'
+import { TextField } from '@mui/material'
+import { Typography } from '@mui/material'
+
 type FormData = {
   name: string
   email: string
@@ -21,7 +24,6 @@ type FormData = {
 }
 
 function Register() {
-  const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
 
