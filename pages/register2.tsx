@@ -4,11 +4,9 @@ import { TextField } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
 import { getSession } from 'next-auth/react'
-import { getProviders } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
 import { GetServerSideProps } from 'next/types'
 import { useContext } from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { validations } from '../utils'
@@ -26,7 +24,6 @@ function Register() {
   const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
-  const [providers, setProviders] = useState<any>({})
 
   const {
     register,
@@ -35,10 +32,6 @@ function Register() {
   } = useForm<FormData>()
 
   const { registerUser } = useContext(authContext)
-
-  useEffect(() => {
-    getProviders().then((prov) => setProviders(prov))
-  }, [])
 
   const onRegisterForm = async ({ name, email, password }: FormData) => {
     setShowError(false)
@@ -140,34 +133,6 @@ function Register() {
                 Enviar
               </Button>
             </Grid>
-
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              {Object.values(providers).map((provider: any) => {
-                if (provider.id === 'credentials')
-                  return <div key="credentials"></div>
-                return (
-                  <Button
-                    key={provider.id}
-                    color="primary"
-                    sx={{
-                      m: 'auto',
-                      mb: 1,
-                      backgroundColor: '#f0f2',
-                      border: '1px solid #888',
-                      width: '80%',
-                    }}
-                    onClick={() => signIn(provider.id)}
-                  >
-                    <Typography fontSize={18}>{provider.name}</Typography>
-                  </Button>
-                )
-              })}
-            </Box>
           </form>
         </Box>
       </Box>
