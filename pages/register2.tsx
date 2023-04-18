@@ -1,8 +1,14 @@
+import { Box } from '@mui/material'
+import { Button } from '@mui/material'
+import { Chip } from '@mui/material'
+import { Grid } from '@mui/material'
+import { TextField } from '@mui/material'
+import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
-import { getSession } from 'next-auth/react'
+import { getProviders } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
-import { GetServerSideProps } from 'next/types'
 import { useContext } from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { validations } from '../utils'
@@ -10,22 +16,18 @@ import { useRouter } from 'next/router'
 import { ErrorOutline } from '@mui/icons-material'
 import { authContext } from '../context/auth'
 
-import { Box } from '@mui/material'
-import { Grid } from '@mui/material'
-import { Chip } from '@mui/material'
-import { Button } from '@mui/material'
-import { TextField } from '@mui/material'
-import { Typography } from '@mui/material'
-
 type FormData = {
   name: string
   email: string
   password: string
 }
 
-function Register() {
+function Register2() {
+  const router = useRouter()
   //await signIn('credentials', {email, password})
   const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [providers, setProviders] = useState<any>({})
 
   const {
     register,
@@ -35,12 +37,17 @@ function Register() {
 
   const { registerUser } = useContext(authContext)
 
+  useEffect(() => {
+    getProviders().then((prov) => setProviders(prov))
+  }, [])
+
   const onRegisterForm = async ({ name, email, password }: FormData) => {
     setShowError(false)
     const { hasError, message } = await registerUser(name, email, password)
 
     if (hasError) {
       setShowError(true)
+      setErrorMessage(message!)
       setTimeout(() => setShowError(false), 3000)
       return
     }
@@ -135,6 +142,34 @@ function Register() {
                 Enviar
               </Button>
             </Grid>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {Object.values(providers).map((provider: any) => {
+                if (provider.id === 'credentials')
+                  return <div key="credentials"></div>
+                return (
+                  <Button
+                    key={provider.id}
+                    color="primary"
+                    sx={{
+                      m: 'auto',
+                      mb: 1,
+                      backgroundColor: '#f0f2',
+                      border: '1px solid #888',
+                      width: '80%',
+                    }}
+                    onClick={() => signIn(provider.id)}
+                  >
+                    <Typography fontSize={18}>{provider.name}</Typography>
+                  </Button>
+                )
+              })}
+            </Box>
           </form>
         </Box>
       </Box>
@@ -142,24 +177,4 @@ function Register() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
-  const session = await getSession({ req })
-
-  const { p = '/' } = query
-  if (session) {
-    return {
-      redirect: {
-        destination: p.toString(),
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {},
-  }
-}
-export default Register
+export default Register2
