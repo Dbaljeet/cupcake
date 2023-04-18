@@ -44,7 +44,11 @@ export const ProductCart: FC<Props> = ({ product, editable }) => {
           <Link>
             <CardActionArea>
               <CardMedia
-                image={`${product.image}`}
+                image={`${
+                  product.image.includes('http')
+                    ? product.image
+                    : `/products/${product.image}`
+                }`}
                 component="img"
                 sx={{ borderRadius: '5px' }}
               />

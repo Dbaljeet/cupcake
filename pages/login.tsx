@@ -6,8 +6,19 @@ import { GetServerSideProps } from 'next/types'
 
 import { ShopLayout } from '../components/layouts'
 
-import { ErrorOutline } from '@mui/icons-material'
-import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material'
+import { ErrorOutline, GroupAddOutlined } from '@mui/icons-material'
+import {
+  Button,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
+import { Chip } from '@mui/material'
+import { Typography } from '@mui/material'
+import { TextField } from '@mui/material'
+import { Grid } from '@mui/material'
+import { Box } from '@mui/material'
+
 import { validations } from '../utils'
 
 type FormData = {
@@ -145,6 +156,17 @@ function Login() {
               })}
             </Box>
           </form>
+
+          <ListItemButton
+            sx={{ margin: 'auto', borderRadius: '20px' }}
+            onClick={() => router.push(`/register`)}
+            aria-label="Regístrate para formar parte de nuestra tienda"
+          >
+            <ListItemIcon>
+              <GroupAddOutlined />
+            </ListItemIcon>
+            <ListItemText primary={'Registrarse'} />
+          </ListItemButton>
         </Box>
       </Box>
     </ShopLayout>

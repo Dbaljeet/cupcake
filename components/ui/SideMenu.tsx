@@ -18,6 +18,7 @@ import {
   AdminPanelSettings,
   CategoryOutlined,
   ConfirmationNumberOutlined,
+  GroupAddOutlined,
   LoginOutlined,
   SearchOutlined,
   VpnKeyOutlined,
@@ -116,17 +117,31 @@ export const SideMenu: React.FC = () => {
           )}
 
           {!isLoggedIn && (
-            <li>
-              <ListItemButton
-                onClick={() => navigateTo(`/login?p=${router.asPath}`)}
-                aria-label="Inicia sesión para realizar tu compra"
-              >
-                <ListItemIcon>
-                  <VpnKeyOutlined />
-                </ListItemIcon>
-                <ListItemText primary={'Ingresar'} />
-              </ListItemButton>
-            </li>
+            <>
+              <li>
+                <ListItemButton
+                  onClick={() => navigateTo(`/login?p=${router.asPath}`)}
+                  aria-label="Inicia sesión para realizar tu compra"
+                >
+                  <ListItemIcon>
+                    <VpnKeyOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Ingresar'} />
+                </ListItemButton>
+              </li>
+
+              <li>
+                <ListItemButton
+                  onClick={() => navigateTo(`/register?p=${router.asPath}`)}
+                  aria-label="Regístrate para formar parte de nuestra tienda"
+                >
+                  <ListItemIcon>
+                    <GroupAddOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Registrarse'} />
+                </ListItemButton>
+              </li>
+            </>
           )}
 
           {user?.role === 'admin' && (
