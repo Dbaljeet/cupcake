@@ -1,4 +1,8 @@
-## Getting Started
+## _Cupcake | shop_ (ECOMMERCE)
+![cupcakesu](https://user-images.githubusercontent.com/97411557/232965075-691357db-72ab-4e61-abd6-9c518689f472.png)
+
+> it's just a practice
+
 
 First, run the development server:
 npm run dev
