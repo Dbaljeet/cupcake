@@ -67,7 +67,6 @@ const HistoryPage = () => {
 
   const getOrder = async () => {
     const orders = await request<IOrder[]>(`/api/${'getData'}`)
-    console.log(orders)
     const rows = orders.map((order, idx) => ({
       id: idx + 1,
       paid: order.isPaid,
