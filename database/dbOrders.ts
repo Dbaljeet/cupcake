@@ -1,9 +1,12 @@
-import { isValidObjectId } from 'mongoose'
+import mongoose, { isValidObjectId } from 'mongoose'
+
 import { db } from '.'
 import { IOrder } from '../interfaces'
 import { Order } from '../models'
 
 export const getOrderById = async (id: string): Promise<IOrder | null> => {
+  console.log(id, 'dbobder')
+  console.log(isValidObjectId(id), 'dbobder')
   if (!isValidObjectId(id)) {
     return null
   }

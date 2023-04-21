@@ -66,5 +66,6 @@ export const config = {
     '/login/:path*',
     '/register/:path*',
     '/orders/history/:path*',
+    '/orders/:path*',
   ],
 }

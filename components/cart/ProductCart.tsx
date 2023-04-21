@@ -67,7 +67,7 @@ export const ProductCart: FC<Props> = ({ product, editable }) => {
               setSelectedCount={setSelectedCount}
             />
           ) : (
-            <Typography variant="h5">3 items</Typography>
+            <Typography variant="h5">{product.quantity} items</Typography>
           )}
         </Box>
       </Grid>
