@@ -7,14 +7,33 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IOrder>
 ) {
-  const id = req.body
-
+  const { orderId } = req.body
   const session: any = await getSession({ req })
-
-  const order = await dbOrders.getOrderById(id.toString())
+  const order = await dbOrders.getOrderById(orderId)
 
   if (!order) {
-    return
+    return res.status(400).json({
+      _id: 'error',
+      user: '',
+      orderItems: [],
+      shippingAddress: {
+        firstName: '',
+        lastName: '',
+        zone: '',
+        address: '',
+        phone: '',
+      },
+      paymentResult: '',
+      numberOfItems: 0,
+      subTotal: 0,
+      tax: 0,
+      total: 0,
+      isPaid: false,
+      transactionId: '',
+
+      createdAt: '',
+      updatedAt: '',
+    })
   }
 
   if (order.user !== session.user._id) {

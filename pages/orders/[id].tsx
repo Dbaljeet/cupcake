@@ -27,16 +27,7 @@ const zoneDef = (zone: String) => {
   return aux?.name
 }
 
-function request<IOrder>(
-  url: string,
-  config: RequestInit = {}
-): Promise<IOrder> {
-  return fetch(url, config)
-    .then((response) => response.json())
-    .then((data) => data as IOrder)
-}
-
-const Order: NextPage<Props> = ({ id }) => {
+const Order: NextPage<Props> = () => {
   const [order, setOrder] = useState<IOrder>({
     _id: '',
     user: '',
@@ -64,20 +55,29 @@ const Order: NextPage<Props> = ({ id }) => {
 
   const router = useRouter()
 
+  const { id } = router.query
+
   useEffect(() => {
+    if (!id) return
     const getOrder = async () => {
-      const ord = await request<IOrder>(`/api/${'/orders/getOrder'}`, {
-        method: 'POST',
-        body: id,
-      })
-      setOrder(ord)
+      const data = await axios
+        .create({
+          baseURL: '/api',
+        })
+        .post(`/orders/getOrder`, {
+          orderId: id,
+        })
+        .catch(function (error) {
+          setOrder(error.response.data)
+        })
+      if (data) setOrder(data.data)
     }
     try {
       getOrder()
     } catch (err) {
       router.push('/')
     }
-  }, [])
+  }, [id, router])
 
   const { shippingAddress } = order
 
@@ -281,45 +281,4 @@ const Order: NextPage<Props> = ({ id }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
-  const { id = '' } = query
-  return {
-    props: {
-      id,
-    },
-  }
-  /*
-  const session: any = await getSession({ req })
-
-  const order = await dbOrders.getOrderById(id.toString())
-
-  if (!order) {
-    return {
-      redirect: {
-        destination: '/orders/history',
-        permanent: false,
-      },
-    }
-  }
-
-  if (order.user !== session.user._id) {
-    return {
-      redirect: {
-        destination: '/orders/history',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      order,
-    },
-  }
-}
-*/
-}
 export default Order
