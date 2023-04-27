@@ -17,6 +17,7 @@ import { Cashformat } from '../../utils'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Loading } from '../../components/ui'
 
 interface Props {
   id: string
@@ -52,6 +53,7 @@ const Order: NextPage<Props> = () => {
   })
 
   const [isPaying, setIsPaying] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
 
@@ -59,6 +61,7 @@ const Order: NextPage<Props> = () => {
 
   useEffect(() => {
     if (!id) return
+    setIsLoading(true)
     const getOrder = async () => {
       const data = await axios
         .create({
@@ -70,7 +73,10 @@ const Order: NextPage<Props> = () => {
         .catch(function (error) {
           setOrder(error.response.data)
         })
-      if (data) setOrder(data.data)
+      if (data) {
+        setOrder(data.data)
+        setIsLoading(false)
+      }
     }
     try {
       getOrder()
@@ -111,10 +117,10 @@ const Order: NextPage<Props> = () => {
       pageDescription={'Revisa tu orden, pedido'}
     >
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="calc(100vh - 200px)"
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
+        minHeight='calc(100vh - 200px)'
         flexDirection={'column'}
       >
         {!order._id ? (
@@ -127,11 +133,13 @@ const Order: NextPage<Props> = () => {
               color={order.isPaid ? 'success' : 'error'}
               label={order.isPaid ? 'pago con éxito' : 'sin pagar'}
             />
-            <Box display="flex" alignItems="center" flexWrap={'wrap'}>
-              <Typography variant="h1" component="h1" fontSize={100}>
+
+            {isLoading && <Loading />}
+            <Box display='flex' alignItems='center' flexWrap={'wrap'}>
+              <Typography variant='h1' component='h1' fontSize={100}>
                 Orden|
               </Typography>
-              <Typography variant="h2" component="h2" fontSize={50}>
+              <Typography variant='h2' component='h2' fontSize={50}>
                 n°
               </Typography>
               <Box>
@@ -141,10 +149,10 @@ const Order: NextPage<Props> = () => {
                       order._id ? order._id.toString() : ''
                     )
                   }
-                  title="Click para copiar número de orden"
-                  className="pointer"
-                  typography="h5"
-                  color="secondary"
+                  title='Click para copiar número de orden'
+                  className='pointer'
+                  typography='h5'
+                  color='secondary'
                   fontSize={40}
                   sx={{ wordBreak: 'break-word' }}
                 >
@@ -161,7 +169,7 @@ const Order: NextPage<Props> = () => {
               </Grid>
 
               <Grid item sm={4} xs={12} p={2}>
-                <Card className="summary-card">
+                <Card className='summary-card'>
                   <Box
                     m={'auto'}
                     sx={{
@@ -173,13 +181,13 @@ const Order: NextPage<Props> = () => {
                       width: '90%',
                     }}
                   >
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Sector: {zoneDef(shippingAddress.zone)}
                     </Typography>
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Dirección: {shippingAddress.address}
                     </Typography>
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Entrega a: {shippingAddress.firstName}{' '}
                       {shippingAddress.lastName}
                     </Typography>
@@ -196,16 +204,16 @@ const Order: NextPage<Props> = () => {
                       width: '90%',
                     }}
                   >
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Cantidad productos: {order.numberOfItems}
                     </Typography>
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Subtotal: {Cashformat(order.subTotal, 0)}
                     </Typography>
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Impuesto: {order.tax}
                     </Typography>
-                    <Typography variant="h3" component="h3" fontSize={20}>
+                    <Typography variant='h3' component='h3' fontSize={20}>
                       Total: {Cashformat(order.total, 2)}
                     </Typography>
                   </Box>
@@ -213,12 +221,12 @@ const Order: NextPage<Props> = () => {
                   <Box
                     sx={{ mt: 3 }}
                     display={`${order.isPaid ? 'flex' : 'none'}`}
-                    flexDirection="column"
+                    flexDirection='column'
                     textAlign={'center'}
                   >
                     <Chip
-                      color="success"
-                      label="Orden pagada"
+                      color='success'
+                      label='Orden pagada'
                       sx={{ width: '70%', m: 'auto', mb: '15px' }}
                     />
                   </Box>
@@ -226,7 +234,7 @@ const Order: NextPage<Props> = () => {
                   <Box
                     sx={{ mt: 3 }}
                     display={`${!order.isPaid ? 'flex' : 'none'}`}
-                    flexDirection="column"
+                    flexDirection='column'
                   >
                     {
                       <Box
