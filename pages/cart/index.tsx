@@ -62,9 +62,15 @@ export default function Cart() {
                   <Box sx={{ mt: 3 }}>
                     <Button
                       href="/checkout/address"
-                      color="secondary"
                       className="circular-btn"
                       fullWidth
+                      sx={{
+                        backgroundColor: '#375fcc',
+                        color: '#fff',
+                        '&:hover': {
+                          backgroundColor: '#274494',
+                        },
+                      }}
                     >
                       Continuar compra
                     </Button>

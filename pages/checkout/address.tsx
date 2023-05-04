@@ -174,8 +174,15 @@ export default function Address() {
             <Grid item xs={12} sm={6} sx={{ m: 'auto', mt: 3, mb: 2 }}>
               <Button
                 type="submit"
-                sx={{ minWidth: '300px', height: '50px' }}
-                color="secondary"
+                sx={{
+                  minWidth: '300px',
+                  height: '50px',
+                  backgroundColor: '#375fcc',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#274494',
+                  },
+                }}
                 className="circular-btn"
                 fullWidth
               >

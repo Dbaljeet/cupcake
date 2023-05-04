@@ -78,37 +78,37 @@ export default function Cart() {
               <CartList editable />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <Card className='summary-card'>
+              <Card className="summary-card">
                 <CardContent>
-                  <Typography variant='h1' component='h1'>
+                  <Typography variant="h1" component="h1">
                     Carro
                   </Typography>
                   <Divider sx={{ my: 1 }} />
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Cantidad productos: ${numberOfItems}`}
                   </Typography>
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Subtotal: ${Cashformat(subTotal, 0)}`}
                   </Typography>
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Impuesto: ${tax}`}
                   </Typography>
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Total: ${Cashformat(total, 2)}`}
                   </Typography>
                   <Divider sx={{ my: 1 }} />
 
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Nombre: ${firstName + ' ' + lastName}`}
                   </Typography>
 
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Sector: ${zoneDef(zone)}`}
                   </Typography>
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Dirección: ${address}`}
                   </Typography>
-                  <Typography variant='h5' component='h5'>
+                  <Typography variant="h5" component="h5">
                     {`Celular: ${phone}`}
                   </Typography>
 
@@ -119,16 +119,22 @@ export default function Cart() {
                       onClick={() => {
                         handleClick()
                       }}
-                      className='circular-btn'
-                      color='secondary'
+                      className="circular-btn"
                       fullWidth
                       disabled={isSubmit}
+                      sx={{
+                        backgroundColor: '#375fcc',
+                        color: '#fff',
+                        '&:hover': {
+                          backgroundColor: '#274494',
+                        },
+                      }}
                     >
                       Finalizar compra
                     </Button>
 
                     <Chip
-                      color='error'
+                      color="error"
                       label={errorMessage}
                       sx={{ display: errorMessage ? 'flex' : 'none', mt: 2 }}
                     />
