@@ -117,9 +117,15 @@ function Login() {
 
             <Grid item xs={12} m={2}>
               <Button
+                sx={{
+                  borderRadius: '30px',
+                  backgroundColor: '#375fcc',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#274494',
+                  },
+                }}
                 type="submit"
-                color="secondary"
-                className="circular-btn"
                 size="large"
                 fullWidth
               >
@@ -146,6 +152,9 @@ function Login() {
                       backgroundColor: '#f0f2',
                       border: '1px solid #888',
                       width: '80%',
+                      '&:hover': {
+                        backgroundColor: 'rgb(243 174 243 / 28%)',
+                      },
                     }}
                     onClick={() => signIn(provider.id)}
                   >

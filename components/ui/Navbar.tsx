@@ -50,11 +50,13 @@ export const Navbar: React.FC = ({}) => {
               <Button size="medium">Ver Cupcackes</Button>
             </Link>
           </NextLink>
+          {/* 
           <NextLink href="categories/CupcakesLivianos">
             <Link>
               <Button size="medium">Opciones livianas</Button>
             </Link>
           </NextLink>
+*/}
         </Box>
 
         <Box flex={1}></Box>

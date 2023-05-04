@@ -26,14 +26,6 @@
   animation-name: fadeIn;
 }
 
-.circular-btn {
-  border-radius: 30px;
-}
-
-.circular-btn:hover {
-  background-color: #274494;
-}
-
 .infoHov {
   background-color: #274494;
 }

@@ -5,10 +5,8 @@ import { Grid } from '@mui/material'
 import { TextField } from '@mui/material'
 import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layouts'
-import { getSession } from 'next-auth/react'
 import { getProviders } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
-import { GetServerSideProps } from 'next/types'
 import { useContext } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -136,10 +134,16 @@ function Register() {
             <Grid item xs={12} m={2}>
               <Button
                 type="submit"
-                color="secondary"
-                className="circular-btn"
                 size="large"
                 fullWidth
+                sx={{
+                  borderRadius: '30px',
+                  backgroundColor: '#375fcc',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#274494',
+                  },
+                }}
               >
                 Enviar
               </Button>
@@ -164,6 +168,9 @@ function Register() {
                       backgroundColor: '#f0f2',
                       border: '1px solid #888',
                       width: '80%',
+                      '&:hover': {
+                        backgroundColor: 'rgb(243 174 243 / 28%)',
+                      },
                     }}
                     onClick={() => signIn(provider.id)}
                   >
