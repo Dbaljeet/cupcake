@@ -112,7 +112,13 @@ const Slug: NextPage<Props> = ({ product }) => {
               <Button
                 disabled={product.inStock === 0}
                 onClick={() => handleCart()}
-                color="secondary"
+                sx={{
+                  backgroundColor: '#375fcc',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#274494',
+                  },
+                }}
                 className="circular-btn"
               >
                 Agregar compra
