@@ -4,7 +4,7 @@ import { Typography, Grid, Chip, Link } from '@mui/material'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 
 import { ShopLayout } from '../../components/layouts'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IOrder } from '../../interfaces'
 import { Loading } from '../../components/ui'
 import { ErrorOutline } from '@mui/icons-material'
