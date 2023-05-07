@@ -13,6 +13,12 @@ const Home: NextPage = () => {
     <ShopLayout
       title={'Cupcake La Serena'}
       pageDescription={'Encuentra los mejores cupcakes de la cuarta región'}
+      optinalMeta={
+        <meta
+          name="google-site-verification"
+          content="coyqqEUFn8y0hGtHJLg0yCSnQjWLzUri2fLnlo39IYU"
+        />
+      }
     >
       <Box sx={{ padding: 2 }}>
         <Typography variant="h1" component="h1">

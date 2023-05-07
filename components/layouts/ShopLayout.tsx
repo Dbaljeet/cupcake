@@ -1,27 +1,29 @@
 import Head from 'next/head'
 import { FC } from 'react'
 import { Navbar, SideMenu } from '../ui'
-import { useState } from 'react'
 interface Props {
   children: React.ReactNode | React.ReactNode[]
   title: string
   pageDescription: string
   imageFullUrl?: string
+  optinalMeta?: React.ReactNode
 }
 export const ShopLayout: FC<Props> = ({
   children,
   title,
   pageDescription,
   imageFullUrl,
+  optinalMeta,
 }) => {
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name='description' content={pageDescription} />
-        <meta name='og:title' content={title} />
-        <meta name='og:description' content={pageDescription} />
-        {imageFullUrl && <meta name='og:image' content={imageFullUrl} />}
+        <meta name="description" content={pageDescription} />
+        <meta name="og:title" content={title} />
+        <meta name="og:description" content={pageDescription} />
+        {imageFullUrl && <meta name="og:image" content={imageFullUrl} />}
+        {optinalMeta}
       </Head>
       <nav>
         <Navbar />

@@ -1,14 +1,13 @@
 import NextLink from 'next/link'
-import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
 
 import { Typography, Grid, Chip, Link } from '@mui/material'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 
 import { ShopLayout } from '../../components/layouts'
-import { dbOrders } from '../../database'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IOrder } from '../../interfaces'
+import { Loading } from '../../components/ui'
+import { ErrorOutline } from '@mui/icons-material'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 100 },
@@ -64,16 +63,27 @@ function request<IOrders>(
 
 const HistoryPage = () => {
   const [rows, setRows] = useState<Rows[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   const getOrder = async () => {
-    const orders = await request<IOrder[]>(`/api/${'getData'}`)
-    const rows = orders.map((order, idx) => ({
-      id: idx + 1,
-      paid: order.isPaid,
-      fullname: `${order.shippingAddress.firstName} ${order.shippingAddress.lastName}`,
-      orderId: order._id,
-    }))
-    setRows(rows)
+    try {
+      const orders = await request<IOrder[]>(`/api/${'getData'}`)
+      const rows = orders.map((order, idx) => ({
+        id: idx + 1,
+        paid: order.isPaid,
+        fullname: `${order.shippingAddress.firstName} ${order.shippingAddress.lastName}`,
+        orderId: order._id,
+      }))
+      setIsLoading(false)
+      setRows(rows)
+    } catch (err) {
+      setIsLoading(false)
+      setIsError(true)
+      setTimeout(() => {
+        setIsError(false)
+      }, 3000)
+    }
   }
 
   useEffect(() => {
@@ -88,23 +98,34 @@ const HistoryPage = () => {
       <Typography variant="h1" component="h1">
         Historial de ordenes
       </Typography>
+      <Chip
+        label="Error | Contacta con nosotros si el problema persiste"
+        color="error"
+        icon={<ErrorOutline />}
+        className="fadeIn"
+        sx={{ display: isError ? 'flex' : 'none' }}
+      />
 
-      <Grid container className="fadeIn">
-        <Grid item xs={12} sx={{ height: 650, width: '100%' }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Grid container className="fadeIn">
+          <Grid item xs={12} sx={{ height: 650, width: '100%' }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-            pageSizeOptions={[10]}
-          />
+              }}
+              pageSizeOptions={[10]}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </ShopLayout>
   )
 }
