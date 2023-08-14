@@ -149,11 +149,11 @@ function Login() {
                     sx={{
                       m: 'auto',
                       mb: 1,
-                      backgroundColor: '#f0f2',
+                      backgroundColor: '#ffffffae',
                       border: '1px solid #888',
                       width: '80%',
                       '&:hover': {
-                        backgroundColor: 'rgb(243 174 243 / 28%)',
+                        backgroundColor: '#ffffff6b',
                       },
                     }}
                     onClick={() => signIn(provider.id)}

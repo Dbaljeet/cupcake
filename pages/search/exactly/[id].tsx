@@ -7,10 +7,10 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material'
-import { ShopLayout } from '../../components/layouts'
-import { ProductList } from '../../components/products'
-import { Loading } from '../../components/ui'
-import { useProducts } from '../../hooks'
+import { ShopLayout } from '../../../components/layouts'
+import { ProductList } from '../../../components/products'
+import { Loading } from '../../../components/ui'
+import { useProducts } from '../../../hooks'
 import { useRouter } from 'next/router'
 import { SearchOutlined } from '@mui/icons-material'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ export default function SearchProduct() {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchExact, setSearchExact] = useState(false)
 
-  const { products, isLoading } = useProducts(`/search/${id}`)
+  const { products, isLoading } = useProducts(`/search/exactly/${id}`)
 
   const onSearchTerm = () => {
     if (searchTerm.trim().length === 0) return
